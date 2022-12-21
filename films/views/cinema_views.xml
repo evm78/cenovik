@@ -1,0 +1,53 @@
+<odoo>
+  <data>
+
+    <!-- CINEMA FORM -->
+    <record id="base_cinema_form" model="ir.ui.view">
+        <field name="name">base.cinema.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="mode">primary</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="replace" />
+            <xpath expr="//field[@name='vat']" position="replace" />
+            <xpath expr="//field[@name='currency_id']" position="replace" />
+            <xpath expr="//field[@name='company_registry']" position="replace" />
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Detailed information" name="detailed_info">
+                 <field name="film_details" widget="section_and_note_one2many"  mode="tree">
+                      <tree string="Detailed information" editable="bottom">
+                          <field name="film_id"/>
+                          <field name="user_id"/>
+                          <field name="date_view"/>
+                      </tree>
+                 </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="cinema_model_action" model="ir.actions.act_window">
+        <field name="name">Cinema</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.company</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu items -->
+    <menuitem id="cinema_menu_root"
+        name="Cinema"
+        sequence="20"
+        groups="base.group_user"
+    />
+
+    <!-- menu actions -->
+    <menuitem id="cinema_model_menu_action"
+        action="cinema_model_action"
+        sequence="10"
+        parent="cinema_menu_root"
+    />
+
+  </data>
+</odoo>

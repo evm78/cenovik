@@ -1,0 +1,77 @@
+<odoo>
+  <data>
+
+      <!-- FILM SELECT FORM -->
+      <record id="view_films_find_form" model="ir.ui.view">
+        <field name="name">Film select</field>
+        <field name="model">films</field>
+        <field name="arch" type="xml">
+            <form string="Film">
+                <group>
+<!--                    <field name="my_selection_field"/>-->
+                     <field name="film_select" widget="selection" options="{'no_open':True}"/>
+                </group>
+                 <footer>
+					<button name="select_film" string="Select" type="object" class="btn btn-primary active"/>
+					<button string="Cancel" special="cancel" icon="fa-times" class="btn"  />
+				</footer>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- FILM FORM -->
+    <record model="ir.ui.view" id="films.form">
+      <field name="name">films_form</field>
+      <field name="model">films</field>
+      <field name="priority" eval="10"/>
+      <field name="arch" type="xml">
+          <form string="Film">
+            <sheet>
+                <group>
+                    <group>
+
+                        <div class="o_row">
+                            <field name="name"/>
+                            <button name="action_find_film" type="object" string="Find film" class="btn-link mb-1 px-0" icon="fa-search-plus"/>
+                        </div>
+                        <field name="year"/>
+                        <field name="description"/>
+                    </group>
+                    <group>
+
+                    <field name="poster" widget="image"/>
+
+                        </group>
+                </group>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+      <record id="films_model_action" model="ir.actions.act_window">
+          <field name="name">Films</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">films</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+    <!-- menu items -->
+    <menuitem id="films_menu_root"
+        name="Films"
+        sequence="20"
+        groups="base.group_user"
+    />
+     <!-- menu actions -->
+    <menuitem id="films_model_menu_action"
+        action="films_model_action"
+        sequence="10"
+        parent="films_menu_root"
+    />
+
+
+
+  </data>
+</odoo>
